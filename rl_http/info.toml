@@ -1,0 +1,7 @@
+[meta]
+name        = "RL HTTP Plugin"
+author      = "TJ"
+category    = "Testing"
+
+[script]
+dependencies = [ "MLHook", "MLFeedRaceData", "VehicleState" ]
