@@ -1,5 +1,5 @@
 uint nextSend = 0;
-uint SEND_EVERY_MS = 1000;
+uint SEND_EVERY_MS = 10000;
 
 void Main() {
 
