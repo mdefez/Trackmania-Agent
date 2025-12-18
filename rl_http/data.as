@@ -44,6 +44,9 @@ Json::Value DumpVehicleData() {
         brake      = vis.InputBrakePedal;
         groundContact = vis.IsGroundContact;
 
+        // Direction
+        direction = vis.Dir;
+
         // Wheel data
         fl_steer = vis.FLSteerAngle;
         fl_slip  = vis.FLSlipCoef;
@@ -56,11 +59,21 @@ Json::Value DumpVehicleData() {
 
         // Construct JSON
         data["time"] = t;
+
+        // Position
         auto position = Json::Array();
         position.Add(pos.x);
         position.Add(pos.y);
         position.Add(pos.z);
         data["position"] = position;
+
+        // Direction
+        auto dir = Json::Array();
+        dir.Add(direction.x);
+        dir.Add(direction.y);
+        dir.Add(direction.z);
+        data["direction"] = dir;
+
         data["speed"] = spd;
         data["sideSpeed"] = sspd;
         data["steer"] = steer;

@@ -1,0 +1,15 @@
+Block;X;Y;Z;Dir
+("RoadTechStart", "", "");16;9;21;North
+("RoadTechStraight", "", "");16;9;22;North
+("RoadTechStraight", "", "");16;9;23;North
+("RoadTechStraight", "", "");16;9;24;North
+("RoadTechCurve1", "", "");16;9;25;East
+("RoadTechStraight", "", "");15;9;25;East
+("RoadTechStraight", "", "");14;9;25;East
+("RoadTechCurve1", "", "");13;9;25;West
+("RoadTechStraight", "", "");13;9;26;North
+("RoadTechStraight", "", "");13;9;27;North
+("RoadTechCurve1", "", "");13;9;28;South
+("RoadTechStraight", "", "");14;9;28;West
+("RoadTechStraight", "", "");15;9;28;West
+("RoadTechFinish", "", "");16;9;28;West
