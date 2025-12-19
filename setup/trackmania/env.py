@@ -83,19 +83,19 @@ class TMEnv(gym.Env):
         """ From a gym.spaces.Box((3, )), returns a list of keys to press """
         raise NotImplementedError("This method should be implemented in subclasses.")
     
-    def _compute_reward(self, data) -> float:
+    def _compute_reward(self, obs) -> float:
         """ From a data retrieved from the server, compute the reward """
         raise NotImplementedError("This method should be implemented in subclasses.")
     
-    def _is_terminated(self, data) -> bool:
+    def _is_terminated(self, obs) -> bool:
         """ Tells if the episode can be considered as terminated """
         raise NotImplementedError("This method should be implemented in subclasses.")
 
-    def _is_truncated(self, data) -> bool:
+    def _is_truncated(self, obs) -> bool:
         """ Tells if the episode can be considered as truncated (ie time limit reached) """
         raise NotImplementedError("This method should be implemented in subclasses.")
     
-    def _data_to_observation(self, data) -> gym.spaces.Space:
+    def _data_to_observation(self, raw_data) -> gym.spaces.Space:
         """
         From a data retrieved from the server, compute the observation and map it to observation_space
         Note that any other method called with a data paremeter will receive the observation living in observation_space 

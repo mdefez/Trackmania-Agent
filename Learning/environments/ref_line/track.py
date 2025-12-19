@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 # --- Read CSV ---
-df = pd.read_csv("clean_blocks.csv", sep=';')
+df = pd.read_csv("../../../setup/data/clean_blocks.csv", sep=';')
 df = df[['Block', 'X', 'Y', 'Z', 'Dir']]
 
 df['X'] = df['X'].astype(int)

@@ -10,7 +10,15 @@ N = 100          # number of times to send
 interval_ms = 10  # interval in milliseconds
 
 for i in range(N):
-    payload = {"test": i}
+    speed = 0
+    payload = {
+        "vehicleData": {
+            "position": [528.0,12.0, 688.0],
+            "finished": False,
+            "speed": float(speed),
+            "time": 10 * i
+        }
+    }
     response = requests.post(url, headers=headers, json=payload)
     print(f"Request {i+1}: status {response.status_code}, response: {response.text}")
     

@@ -12,9 +12,19 @@ sys.path.append("..")
 
 ## Line Ref model
 from stable_baselines3 import SAC
-from Learning.agents.ref_line.ref_line_agent import RefLineEnv
+from Learning.environments.ref_line.ref_line_agent import RefLineEnv
 
-env = RefLineEnv("./data/clean_blocks.csv")
-model = SAC("MultiInputPolicy", env, verbose=1)
+#env = RefLineEnv("./data/clean_blocks.csv")
+#model = SAC("MultiInputPolicy", env, verbose=1)
+#model.learn(total_timesteps=100000)
+
+
+## Import Naive Model
+from Learning.models.naive import NaiveModel
+from Learning.environments.naive.naive_env import NaiveEnv
+
+env = NaiveEnv()
+model = NaiveModel(env)
 model.learn(total_timesteps=1000)
-print(model.predict(env.reset()[0]))
+
+# print(model.predict(env.reset()[0]))

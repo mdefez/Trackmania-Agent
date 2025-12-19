@@ -2,7 +2,6 @@ uint nextSend = 0;
 uint SEND_EVERY_MS = 1000;
 
 void Main() {
-
     while (true) {
         if (Time::Now >= nextSend) {
             nextSend = Time::Now + SEND_EVERY_MS;
