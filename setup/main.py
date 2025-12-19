@@ -1,0 +1,20 @@
+import sys
+sys.path.append("..")
+
+## Random model
+# from stable_baselines3 import SAC
+# from Learning.agents.random.random_agent import RandomEnv
+
+# env = RandomEnv()
+# model = SAC("MlpPolicy", env, verbose=1)
+# model.learn(total_timesteps=1000)
+# print(model.predict(env.reset()[0]))
+
+## Line Ref model
+from stable_baselines3 import SAC
+from Learning.agents.ref_line.ref_line_agent import RefLineEnv
+
+env = RefLineEnv("./data/clean_blocks.csv")
+model = SAC("MultiInputPolicy", env, verbose=1)
+model.learn(total_timesteps=1000)
+print(model.predict(env.reset()[0]))
