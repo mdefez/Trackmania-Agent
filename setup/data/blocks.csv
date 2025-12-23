@@ -1,0 +1,15 @@
+Block,X,Y,Z,Dir,cx,cy,cz
+RoadTechStart,16,1,21,North,528.0,12.0,688.0
+RoadTechStraight,16,1,22,North,528.0,12.0,720.0
+RoadTechStraight,16,1,23,North,528.0,12.0,752.0
+RoadTechStraight,16,1,24,North,528.0,12.0,784.0
+RoadTechCurve1,16,1,25,East,528.0,12.0,816.0
+RoadTechStraight,15,1,25,East,496.0,12.0,816.0
+RoadTechStraight,14,1,25,East,464.0,12.0,816.0
+RoadTechCurve1,13,1,25,North,432.0,12.0,816.0
+RoadTechStraight,13,1,26,North,432.0,12.0,848.0
+RoadTechStraight,13,1,27,North,432.0,12.0,880.0
+RoadTechCurve1,13,1,28,West,432.0,12.0,912.0
+RoadTechStraight,14,1,28,West,464.0,12.0,912.0
+RoadTechStraight,15,1,28,West,496.0,12.0,912.0
+RoadTechFinish,16,1,28,West,528.0,12.0,912.0

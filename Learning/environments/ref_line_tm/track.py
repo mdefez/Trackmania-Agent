@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 # --- Read CSV ---
-df = pd.read_csv("../../../setup/data/clean_blocks.csv", sep=';')
+df = pd.read_csv("../../../setup/data/blocks.csv", sep=',')
 df = df[['Block', 'X', 'Y', 'Z', 'Dir']]
 
 df['X'] = df['X'].astype(int)
@@ -11,10 +11,10 @@ df['Y'] = df['Y'].astype(int)
 df['Z'] = df['Z'].astype(int)
 
 # --- Track parameters ---
-track_width = 1.0  # width of each block
+track_width = 32  # width of each block
 
 # --- Helper: get rectangle corners for a block ---
-def get_block_corners(x, z, width=1.0):
+def get_block_corners(x, z, width=32):
     """
     Returns 4 corners of a block (square) based on center x,z
     """

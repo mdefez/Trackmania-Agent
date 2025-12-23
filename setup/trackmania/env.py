@@ -14,6 +14,11 @@ from .keyboard.generic import W, A, S, D
 import logging
 logging.getLogger('werkzeug').setLevel(logging.ERROR)
 
+from ..config import WINDOWS_IP
+import requests
+
+import time
+
 class TMController:
     def __init__(self, app : Flask):
 
@@ -26,7 +31,6 @@ class TMController:
         # Keys
         self.new_press_keys = set()
 
-
         @self.server.route("/api/data", methods=["POST"])
         def handle_data():
             data = request.get_json()
@@ -34,12 +38,16 @@ class TMController:
             if not data :
                 return jsonify({"error": "No JSON payload provided"}), 400
             
-            self._loop.call_soon_threadsafe(self._data_future.set_result, data)
+            def set_data(data) :
+                if not self._data_future.done() :
+                    self._data_future.set_result(data)
+
+            self._loop.call_soon_threadsafe(set_data, data)
 
             return jsonify({"status": "success", "received": data}), 200
     
     def start(self):
-        self.thread = threading.Thread(target= self.server.run, kwargs={"host":"127.0.0.1", "port":8080})
+        self.thread = threading.Thread(target= self.server.run, kwargs={"host":"0.0.0.0", "port":8080})
         self.thread.daemon = True
         self.thread.start()
     
@@ -58,14 +66,39 @@ class TMController:
 
         # Press and Release keys accordingly
         for key in keys:
-            self.new_press_keys.add(eval(key))
+            # print("Key to press:", key)
+            self.new_press_keys.add(key)
 
+        payload = {
+            "press": [],
+            "release": []
+        }
         for k in self.new_press_keys - old_pressed_keys:
-            PressKey(k)
+            payload["press"].append(k)
+            # print("Pressing key:", k)
+            # PressKey(k)
         for k in old_pressed_keys - self.new_press_keys:
-            ReleaseKey(k)
+            payload["release"].append(k)
+            # print("Releasing key:", k)
+            # ReleaseKey(k)
+        # print(payload)
+        requests.post(f"http://{WINDOWS_IP}:8081/command", json=payload)
     
     def reset(self):
+        payload = {
+            "press": ["Backspace"],
+            "release": ["Backspace"]
+        }
+        while True :
+            # Test and retry if timeoue
+            try :
+                requests.post(f"http://{WINDOWS_IP}:8081/reset", json=payload, timeout=1)
+                break
+            except requests.exceptions.RequestException as a :
+                print("Timeout while resetting controller, retrying...")
+                continue
+
+
         print("Resetting controller...")
 
 
