@@ -9,7 +9,7 @@ if platform.system() == "Darwin":
     from .keyboard.macos import PressKey, ReleaseKey
 elif platform.system() == "Windows":
     from .keyboard.windows import PressKey, ReleaseKey
-from .keyboard.generic import W, A, S, D
+from .keyboard.generic import W, A, S, D, Backspace
 
 import logging
 logging.getLogger('werkzeug').setLevel(logging.ERROR)
@@ -34,7 +34,11 @@ class TMController:
             if not data :
                 return jsonify({"error": "No JSON payload provided"}), 400
             
-            self._loop.call_soon_threadsafe(self._data_future.set_result, data)
+            def set_data(data) :
+                if not self._data_future.done() :
+                    self._data_future.set_result(data)
+
+            self._loop.call_soon_threadsafe(set_data, data)
 
             return jsonify({"status": "success", "received": data}), 200
     
@@ -56,16 +60,30 @@ class TMController:
         old_pressed_keys = self.new_press_keys.copy()
         self.new_press_keys.clear()
 
+        keys_map = {
+            "W": W,
+            "A": A,
+            "S": S,
+            "D": D,
+            "Backspace": Backspace
+        }
         # Press and Release keys accordingly
         for key in keys:
-            self.new_press_keys.add(eval(key))
+            self.new_press_keys.add(keys_map[key])
+            # print(key)
 
+        # print("Action - Pressing keys:", keys)
         for k in self.new_press_keys - old_pressed_keys:
             PressKey(k)
+            # print("Pressed key:", k)
         for k in old_pressed_keys - self.new_press_keys:
             ReleaseKey(k)
     
     def reset(self):
+        PressKey(Backspace)
+        ReleaseKey(Backspace)
+        for k in [W, A, S, D, Backspace]:
+            ReleaseKey(k)
         print("Resetting controller...")
 
 

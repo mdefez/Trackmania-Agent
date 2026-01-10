@@ -1,0 +1,8 @@
+[meta]
+name        = "RL HTTP Plugin"
+author      = "TJ"
+category    = "Testing"
+signatureMode = "release"
+
+[script]
+dependencies = [ "MLHook", "MLFeedRaceData", "VehicleState" ]

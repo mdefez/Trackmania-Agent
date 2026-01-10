@@ -175,9 +175,11 @@ class TrackmaniaTrack:
             dist = np.linalg.norm(to_center_vec)
             return dist
         
+        # print("Checking next")
         # Check remaining blocks for next curve
         for j in range(idx + 1, len(self.df)):
             next_block = self.df.iloc[j]
+
             if 'Curve' in next_block['Block']:
                 cx = - next_block['cx']
                 cz = next_block['cz']
@@ -187,7 +189,8 @@ class TrackmaniaTrack:
                 dist = np.linalg.norm(to_center_vec)
                 return dist
         
-        return -1  # No more curves ahead
+        # print("returning -1")
+        return 200  # No more curves ahead
 
     def _next_curve_angle(self, pos):
         idx = self._conpute_block_idx(pos)
@@ -320,3 +323,27 @@ if __name__ == "__main__":
     print("Angle to line:", np.degrees(track.angle_to_line(np.array([1,0,0]), [500,816])))
     print("Angle to line:", np.degrees(track.angle_to_line(np.array([-0.9,0,0.1]), [460,816])))
     print("Angle to line:", np.degrees(track.angle_to_line(np.array([-0.9,0,-0.1]), [450,816])))
+    print("Angle to line:", np.degrees(track.angle_to_line(np.array([1,0,0]), [475,900])))
+
+    print("Distance to next line:", track.distance_to_next_curve([525,700]))
+    print("Distance to next line:", track.distance_to_next_curve([525,750]))
+    print("Distance to next line:", track.distance_to_next_curve([525,800]))
+
+    print("Distance to next line:", track.distance_to_next_curve([475,825]))
+
+    
+
+    for i in range(850, 925, 10):
+        print(f"Distance to next line at z={i}:", track.distance_to_next_curve([425,i]))
+    # print("Distance to next line:", np.degrees(track.distance_to_next_curve([425,850])))
+    # print("Distance to next line:", np.degrees(track.distance_to_next_curve([425,900])))
+
+    print("Distance to next line last track :", track.distance_to_next_curve([500,900]))
+
+    ## Angle of next curve
+    print("Next curve angle:", track._next_curve_angle([525,700]))
+    print("Next curve angle:", track._next_curve_angle([525,750]))
+    print("Next curve angle:", track._next_curve_angle([525,800]))
+    print("Next curve angle:", track._next_curve_angle([450,825]))
+    print("Next curve angle:", track._next_curve_angle([425,850]))
+
